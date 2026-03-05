@@ -1,6 +1,6 @@
-const grid = document.getElementById("videoGrid")
-const searchInput = document.getElementById("videoSearch")
-const sentinel = document.getElementById("loadSentinel")
+let grid
+let searchInput
+let sentinel
 
 let allVideos = []
 let filteredVideos = []
@@ -21,6 +21,8 @@ const batchSize = ROW_SIZE * cols
 
 const start = rowsLoaded * batchSize
 const end = start + batchSize
+
+if(start >= filteredVideos.length) return
 
 const slice = filteredVideos.slice(start, end)
 
@@ -62,17 +64,24 @@ resetGrid()
 
 }
 
-searchInput.addEventListener("input", filterVideos)
-
 const observer = new IntersectionObserver(entries=>{
 if(entries[0].isIntersecting){
 renderNextRows()
 }
 })
 
-observer.observe(sentinel)
-
 window.videoLibraryInit = async function(){
+grid = document.getElementById("videoGrid")
+searchInput = document.getElementById("videoSearch")
+sentinel = document.getElementById("loadSentinel")
+
+if (searchInput) {
+searchInput.addEventListener("input", filterVideos)
+}
+
+if (sentinel) {
+observer.observe(sentinel)
+}
 
 try{
 
@@ -92,7 +101,8 @@ allVideos = [
 }
 
 filteredVideos = allVideos
-renderNextRows()
+rowsLoaded = 0
+resetGrid()
 
 }
 
