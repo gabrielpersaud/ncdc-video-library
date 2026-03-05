@@ -75,7 +75,7 @@ renderNextRows()
 
 observer.observe(sentinel)
 
-async function init(){
+window.videoLibraryInit = async function(){
 
 try{
 
@@ -99,6 +99,6 @@ renderNextRows()
 
 }
 
-init()
+videoLibraryInit()
 
 })
