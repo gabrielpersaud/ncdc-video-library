@@ -79,7 +79,7 @@ async function init(){
 
 try{
 
-const res=await fetch("/videos.json")
+const res = await fetch("https://cdn.jsdelivr.net/gh/gabrielpersaud/ncdc-video-library@main/videos.json")
 allVideos=await res.json()
 
 }catch(e){
